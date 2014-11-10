@@ -14,6 +14,8 @@ $config = array(
 
     "check_auth" => array(
         "user",
-        "admin"
+        "admin",
+        "cate",
+        "article"
     )
 );

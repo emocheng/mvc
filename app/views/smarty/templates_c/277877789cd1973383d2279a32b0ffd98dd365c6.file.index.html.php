@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.20, created on 2014-11-07 16:21:44
+<?php /* Smarty version Smarty-3.1.20, created on 2014-11-10 19:45:24
          compiled from "/Users/tc/www/mvc/app/views/index/index.html" */ ?>
 <?php /*%%SmartyHeaderCode:900938698544f00f33c4282-68155914%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '277877789cd1973383d2279a32b0ffd98dd365c6' => 
     array (
       0 => '/Users/tc/www/mvc/app/views/index/index.html',
-      1 => 1415348407,
+      1 => 1415619921,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'nav' => 0,
     'v' => 0,
+    'user' => 0,
     'a' => 0,
   ),
   'has_nocache_code' => false,
@@ -104,7 +105,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         }
         .title{
             float:left;
-            padding:5px 32px;
+            padding:5px 24px;
 
         }
         .title a{
@@ -280,12 +281,22 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 
 
                     <ul class="nav navbar-nav navbar-right">
+                        <?php if (isset($_smarty_tpl->tpl_vars['user']->value)) {?>
                         <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员登陆 <span class="caret"></span></a>
-                                 <ul class="dropdown-menu" role="menu">
-                                     <li><a href="index.php?c=user&a=login">登陆</a></li>
-                                 </ul>
-                         </li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_smarty_tpl->tpl_vars['user']->value['name'];?>
+<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="index.php?c=user&a=logout">登出</a></li>
+                            </ul>
+                        </li>
+                        <?php } else { ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">登陆<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="index.php?c=user&a=login">用户登陆</a></li>
+                            </ul>
+                        </li>
+                        <?php }?>
                     </ul>
 
 
@@ -352,7 +363,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                 <div class="row">
                     <div class="col-md-4">
                         <img src="<?php echo $_smarty_tpl->tpl_vars['v']->value['img'];?>
-"/>
+" width="240" height="160"/>
                     </div>
                     <div class="col-md-8">
                         <div class="content_title"><a href="index.php?a=content&id=<?php echo $_smarty_tpl->tpl_vars['v']->value['id'];?>
@@ -365,7 +376,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                 <div class="content_bottom">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="content_time">发表时间:<?php echo $_smarty_tpl->tpl_vars['v']->value['time'];?>
+                            <div class="content_time">发表时间:<?php echo date("Y-m-d H:i:s",$_smarty_tpl->tpl_vars['v']->value['time']);?>
 </div>
                          </div>
                         <div class="col-md-4">
@@ -373,7 +384,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="content_cate"><?php echo $_smarty_tpl->tpl_vars['v']->value['cid'];?>
+                            <div class="content_cate"><?php echo $_smarty_tpl->tpl_vars['v']->value['cate'];?>
 </div>
                         </div>
                     </div>
@@ -386,9 +397,9 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
         <div class="col-md-4">
             <div class="right">
                 <div class="right_title">
-                    <div class="title"><a href="">分类一</a></div>
-                    <div class="title"><a href="">分类二</a></div>
-                    <div class="title"><a href="">分类三</a></div>
+                    <div class="title"><a href="">最新新闻</a></div>
+                    <div class="title"><a href="">最新评论</a></div>
+                    <div class="title"><a href="">最新专题</a></div>
                 </div>
                 <div class="bar">
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.20, created on 2014-11-07 16:21:14
+<?php /* Smarty version Smarty-3.1.20, created on 2014-11-10 16:58:23
          compiled from "/Users/tc/www/mvc/app/views/index/content.html" */ ?>
 <?php /*%%SmartyHeaderCode:1236023788545c56edea0577-95996323%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '45cbec01474e81d24b112e37e0d5e9f70051a7c1' => 
     array (
       0 => '/Users/tc/www/mvc/app/views/index/content.html',
-      1 => 1415348467,
+      1 => 1415609899,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'nav' => 0,
     'v' => 0,
+    'user' => 0,
     'b' => 0,
+    'comm' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -173,12 +175,22 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 
 
             <ul class="nav navbar-nav navbar-right">
+                <?php if (isset($_smarty_tpl->tpl_vars['user']->value)) {?>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员登陆 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle user" data-toggle="dropdown"><?php echo $_smarty_tpl->tpl_vars['user']->value['name'];?>
+<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="index.php?c=user&a=login">登陆</a></li>
+                        <li><a href="index.php?c=user&a=logout">登出</a></li>
                     </ul>
                 </li>
+                <?php } else { ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">登陆<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="index.php?c=user&a=login">用户登陆</a></li>
+                    </ul>
+                </li>
+                <?php }?>
             </ul>
 
 
@@ -204,45 +216,73 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                     <?php echo $_smarty_tpl->tpl_vars['b']->value['content'];?>
 
                 </div>
+
+                <!--评论部分-->
                 <div class="main_comment">
                     <h3>文章点评:</h3>
-                    <div class="comment">
-                        <textarea name="comment" placeholder="我有话要说……"></textarea>
-                    </div>
-                    <div class="submit">
-                    <button type="submit" >提交</button>
-                    </div>
+                        <form>
+                            <div class="comment">
+                                <textarea class="comment_area" placeholder="我有话要说……"></textarea>
+                            </div>
+                            <div class="submit">
+                            <button  class="ajax_post" >提交</button>
+                            </div>
+                        </form>
+
                     <div class="comm_list_main">
                         <div class="comm_count"><span><i>3</i>条评论</span></div>
+                        <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['comm']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
                         <div class="comm_list">
                             <div class="head_img"><img src="app/assets/images/user.jpg"></div>
                             <div class="comm_user">
-                                <a href="">jack</a>:
-                                <span>文章写得太好了</span>
-                                <p>发表时间:<i>2014-10-1</i></p>
+                                <a href=""><?php echo $_smarty_tpl->tpl_vars['v']->value['name'];?>
+</a>:
+                                <span><?php echo $_smarty_tpl->tpl_vars['v']->value['content'];?>
+</span>
+                                <p>发表时间:<i><?php echo date("Y-m-d H:i:s",$_smarty_tpl->tpl_vars['v']->value['time']);?>
+</i></p>
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="comm_list">
-                            <div class="head_img"><img src="app/assets/images/user.jpg"></div>
-                            <div class="comm_user">
-                                <a href="">jack</a>:
-                                <span>文章写得太好了</span>
-                                <p>发表时间:<i>2014-10-1</i></p>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="comm_list">
-                            <div class="head_img"><img src="app/assets/images/user.jpg"></div>
-                            <div class="comm_user">
-                                <a href="">jack</a>:
-                                <span>文章写得太好了</span>
-                                <p>发表时间:<i>2014-10-1</i></p>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
+                        <?php } ?>
                     </div>
+                    <script>
+                        $(function(){
+                            $(".ajax_post").click(function(){
+                                var comment = $(".comment_area").val();
+                                var aid = <?php echo $_smarty_tpl->tpl_vars['b']->value['id'];?>
+;
+                                var name = <?php if (isset($_smarty_tpl->tpl_vars['user']->value)) {?>"<?php echo $_smarty_tpl->tpl_vars['user']->value['name'];?>
+"<?php } else { ?>"游客"<?php }?>;
 
+
+                                $.post("index.php?a=comm_post",{
+                                    comment : comment,
+                                    aid : aid,
+                                    name : name
+
+                                },function(data){
+                                    console.log(data);
+                                var html="<div class=comm_list>";
+                                html+= "<div class=head_img><img src=app/assets/images/user.jpg></div>";
+                                html+="<div class=comm_user>";
+                                html+="<a href=>"+data.name+"</a>:";
+                                html+="<span>"+data.comment+"</span>";
+                                html+="<p>发表时间:<i>"+data.time+"</i></p>";
+                                html+="</div>";
+                                html+="<div class=clear></div>";
+                                html+="</div>";
+                                $(".comm_list_main").prepend(html);
+
+                                }, "json");
+                                return false;
+                            })
+                        })
+                    </script>
 
                 </div>
             </div>

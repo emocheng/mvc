@@ -119,6 +119,6 @@ function C($key){
  */
 function jump($url, $msg="操作已经完成，请等待3秒钟") {
     echo $msg;
-    echo"<meta http-equiv=refresh content=3;url='".$url."'> ";
+    echo"<meta http-equiv=refresh content=1;url='".$url."'> ";
 
 }

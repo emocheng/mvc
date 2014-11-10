@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.20, created on 2014-11-03 10:19:53
+<?php /* Smarty version Smarty-3.1.20, created on 2014-11-09 15:16:59
          compiled from "/Users/tc/www/mvc/app/views/user/login.html" */ ?>
 <?php /*%%SmartyHeaderCode:1420743136544f42b9c02a01-04977250%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '97ed0b88606900ae0bd237f3005091f4da3a9c36' => 
     array (
       0 => '/Users/tc/www/mvc/app/views/user/login.html',
-      1 => 1414981190,
+      1 => 1415517313,
       2 => 'file',
     ),
   ),
@@ -151,7 +151,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                         </div>
                       </div>
                     </form>
-                    <form class="form-horizontal active" role="form" action="index.php?c=user&a=check_user" method="post">
+                    <form class="form-horizontal active" role="form" action="index.php?c=user&a=add_user" method="post">
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-4 control-label">输入账号:</label>
                             <div class="col-sm-8">
@@ -167,7 +167,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label">确认密码:</label>
                             <div class="col-sm-8">
-                                <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="请输入密码">
+                                <input type="password" name="re_password" class="form-control" id="inputPassword3" placeholder="请输入密码">
                             </div>
                         </div>
 

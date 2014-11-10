@@ -10,6 +10,7 @@ class CommonController extends Smarty
     var $template;
     var $a;
     var $c;
+    var $user;
 
     function __construct()
     {
@@ -59,11 +60,15 @@ class CommonController extends Smarty
         if($this->c =="user" and $this->a=="login") {
             return true;
         }
-
         if (in_array($this->c, $check_auth)) {
-            if (!isset($_SESSION["isLogin"])) {
+            if (!isset($_SESSION["isLogin"]) || $_SESSION["user"]["type"]==0) {
                 header("Location:index.php?c=user&a=login");
             }
+        }
+
+        if(isset($_SESSION["user"])){
+            $this->user = $_SESSION["user"];
+            $this->assign("user",$this->user);
         }
     }
 

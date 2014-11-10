@@ -1,33 +1,51 @@
 <?php
 class UserController extends CommonController
+
+
 {
     function login(){
-        if(isset($_SESSION["isLogin"])) {
+        if(isset($_SESSION["isLogin"]) && $_SESSION["user"]["type"]==1) {
+
             header("Location:index.php?c=admin");
-        } else {
+        }else {
+
             $this->display();
         }
+
 
     }
 
     //检查用户登陆
-    function check_user(){
+    function check_user()
+    {
         $name = $_POST["username"];
         $password = $_POST["password"];
         $check = D();
-        $check_info = $check->check();
+        $user = $check->check($name,$password);
+        if($user){
+            $_SESSION["user"] = $user;
+            $_SESSION["isLogin"] = true;
+            if($user["type"]==1){
+                header("Location:index.php?c=admin");
+            } else {
+                header("Location:index.php");
+            }
 
-        if($name==$check_info["name"]&$password==$check_info["password"]){
-            $_SESSION["user"] = $name;
-            $_SESSION["isLogin"] = "1";
-        }else{
+        } else {
             header("Location:index.php?c=user&a=login");
-
         }
+    }
 
-        if($_SESSION["isLogin"]){
+    function add_user(){
+        $name = $_POST['username'];
+        $password = $_POST['password'];
+        $re_password = $_POST['re_password'];
+        if($name!=""&$password==$re_password){
+            $add_user=D();
+            $add_user->add_user($name,$password);
 
-            header("Location:index.php?c=admin");
+        }else{
+            header("Location:index.php");
         }
 
     }
@@ -35,7 +53,12 @@ class UserController extends CommonController
     //用户退出，删除session
     function logout(){
         $this->clearSession();
-        header("Location:index.php?c=user&a=login");
+        if($this->user["type"]==1){
+            header("Location:index.php?c=user&a=login");
+        } else {
+            header("Location:index.php");
+        }
+
     }
 
 }
