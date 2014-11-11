@@ -4,9 +4,13 @@ class IndexController extends CommonController{
     function index(){  //index.php?c=index&a=index
         $content=D();
         $a = $content->show_con();
-
         $nav = $content->show_nav();
-
+        $new_content = $content->new_content();
+        $roll = $content->roll();
+        $hot_comm = $content->hot_comm();
+        $this->assign("roll",$roll);
+        $this->assign("hot_comm",$hot_comm);
+        $this->assign("new_content",$new_content);
         $this->assign("nav",$nav);
         $this->assign("a",$a);
         $this->display();
@@ -37,6 +41,12 @@ class IndexController extends CommonController{
         $array["time"] = date("Y-m-d H:i:s",time());
         echo json_encode($array);
 
+    }
+    function page(){
+        $num = $_POST["n"];
+        $res = D();
+        $r=$res->show_con($num);
+        echo json_encode($r);
     }
 
 }

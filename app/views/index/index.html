@@ -54,10 +54,11 @@
             width:223px;
             height:269px;
         }
-
-        .play{
+        .roll_text:first-child{
             display:block;
         }
+
+
 
         .roll_content{
             margin-top: 100px;
@@ -277,38 +278,23 @@
                         <div class="col-md-8">
                             <div class="img_all">
                                 <div class="img_team">
-                                    <div class="img"><a href=""><img src="app/assets/images/1.png"></a></div>
-                                    <div class="img act"><a href=""><img src="app/assets/images/2.jpg"></a></div>
-                                    <div class="img"><a href=""><img src="app/assets/images/3.jpg"></a></div>
+                                    {{foreach $roll as $v}}
+                                    <div class="img"><a href=""><img src="{{$v.img}}" width="479" height="295"></a></div>
+                                    {{/foreach}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="roll_text_all">
-                                <div class="roll_text play">
-                                <div class="roll_title"><h4><a href="">这里是标题</a></h4></div>
-                                <div class="roll_time">2014-11-5</div>
+                                {{foreach $roll as $v}}
+                                <div class="roll_text">
+                                <div class="roll_title"><h4><a href="">{{$v.title}}</a></h4></div>
+                                <div class="roll_time">{{date("Y-m-d H:i:s",$v.time)}}</div>
                                 <div class="roll_content">
-                                    这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
-                                    这里是内容这里是内容这里是内容这里是内容这里是内容
+                                    {{$v.dsc}}
                                 </div>
                             </div>
-                                <div class="roll_text">
-                                    <div class="roll_title"><h4><a href="">这里是标题2</a></h4></div>
-                                    <div class="roll_time">2014-11-5</div>
-                                    <div class="roll_content">
-                                        33这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
-                                        这里是内容这里是内容这里是内容这里是内容这里是内容
-                                    </div>
-                                </div>
-                                <div class="roll_text">
-                                    <div class="roll_title"><h4><a href="">这里是标题3</a></h4></div>
-                                    <div class="roll_time">2014-11-5</div>
-                                    <div class="roll_content">
-                                        22这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
-                                        这里是内容这里是内容这里是内容这里是内容这里是内容
-                                    </div>
-                                </div>
+                                {{/foreach}}
                             </div>
                             <div class="roll_btn">
                                 <ul class="hd">
@@ -320,6 +306,7 @@
                         </div>
                     </div>
             </div>
+            <div class="content_ajax">
             {{foreach $a as $v}}
             <div class="content card">
                 <div class="row">
@@ -346,6 +333,37 @@
                 </div>
             </div>
             {{/foreach}}
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block">点击加载更多</button>
+            <script>
+                $(function(){
+                    var n = 1;
+                    $(".btn-lg").click(function(){
+
+                        $.post("index.php?a=page",{
+                            n : n
+                        }, function(data){
+                            $.each(data,function(k,v){
+                                var html = "<div class=content card>";
+                                html+="<div class=row>";
+                                html+="<div class=col-md-4>";
+                                html+="<img src="+ v.img+" width=240 height=160/></div><div class=col-md-8>";
+                                html+="<div class=content_title><a href=index.php?a=content&id="+ v.id+">"+ v.title+"</a></div>";
+                                html+="<div class=content_content>"+ v.dsc+"</div></div></div>";
+                                html+="<div class=content_bottom><div class=row><div class=col-md-4>";
+                                html+="<div class=content_time>发表时间:"+v.time+"</div></div>";
+
+                                html+="<div class=col-md-4>";
+                                html+="<div class=content_autor>作者:"+ v.author+"</div></div>";
+                                html+="<div class=col-md-4><div class=content_cate>"+ v.cate+"</div>";
+                                html+="</div></div></div></div>"
+                                $(".content_ajax").append(html);
+                            })
+                        }, "json");
+                        n++;
+                    })
+                })
+            </script>
         </div><!-- 页面左边的部分结束 -->
 
 
@@ -363,33 +381,20 @@
                 <div class="border"></div>
                 <div class="right_content">
                     <div class="list-group list_play">
+                        {{foreach $new_content as $v}}
                         <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容</p>
+                            <h4 class="list-group-item-heading">{{$v.title}}</h4>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容</p>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容</p>
-                        </a>
+                        {{/foreach}}
                     </div>
 
                     <div class="list-group">
+                        {{foreach $hot_comm as $v}}
                         <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题2</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容2</p>
+                            <h4 class="list-group-item-heading">{{$v.name}}</h4>
+                            <p class="list-group-item-text">{{$v.content}}</p>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题2</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容2</p>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题2</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容2</p>
-                        </a>
+                        {{/foreach}}
                     </div>
 
                     <div class="list-group">
@@ -424,12 +429,9 @@
             <div class="right hot_article">
                 <h3>热门文章</h3>
                 <ul>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
+                    {{foreach $new_content as $v}}
+                    <li><a href="">{{$v.title}}</a></li>
+                    {{/foreach}}
                 </ul>
             </div>
         </div><!-- 右边部分结束 -->
@@ -471,8 +473,8 @@
             $($child).eq($p).addClass("on");
             $($child).eq($p).siblings().removeClass("on");
             var $text_child = $(".roll_text_all").children();
-            $($text_child).eq($p).addClass("play");
-            $($text_child).eq($p).siblings().removeClass("play");
+            $($text_child).eq($p).show();
+            $($text_child).eq($p).siblings().hide();
         } //图片轮滚动画函数
 
          var id = setInterval(t, 2000); //开启动画
@@ -484,8 +486,8 @@
             $(this).addClass("on");
             $(this).siblings().removeClass("on");
             var index = $(this).index();
-            $(".roll_text_all").children().eq(index).addClass("play");
-            $(".roll_text_all").children().eq(index).siblings().removeClass("play");
+            $(".roll_text_all").children().eq(index).show();
+            $(".roll_text_all").children().eq(index).siblings().hide();
             if($(".img_team").is(":animated")) { //如果在动画中，前面的停止执行，直接移动到最终位置
                 $(".img_team").stop().animate({left: index*$i+"px"}, 1000);
             } else { //如果不在动画中，该移动到哪移动到哪

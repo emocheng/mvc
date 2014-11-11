@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.20, created on 2014-11-10 19:45:24
+<?php /* Smarty version Smarty-3.1.20, created on 2014-11-11 13:21:29
          compiled from "/Users/tc/www/mvc/app/views/index/index.html" */ ?>
 <?php /*%%SmartyHeaderCode:900938698544f00f33c4282-68155914%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '277877789cd1973383d2279a32b0ffd98dd365c6' => 
     array (
       0 => '/Users/tc/www/mvc/app/views/index/index.html',
-      1 => 1415619921,
+      1 => 1415683275,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'nav' => 0,
     'v' => 0,
     'user' => 0,
+    'roll' => 0,
     'a' => 0,
+    'new_content' => 0,
+    'hot_comm' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -82,10 +85,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             width:223px;
             height:269px;
         }
-
-        .play{
+        .roll_text:first-child{
             display:block;
         }
+
+
 
         .roll_content{
             margin-top: 100px;
@@ -311,38 +315,35 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                         <div class="col-md-8">
                             <div class="img_all">
                                 <div class="img_team">
-                                    <div class="img"><a href=""><img src="app/assets/images/1.png"></a></div>
-                                    <div class="img act"><a href=""><img src="app/assets/images/2.jpg"></a></div>
-                                    <div class="img"><a href=""><img src="app/assets/images/3.jpg"></a></div>
+                                    <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['roll']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
+                                    <div class="img"><a href=""><img src="<?php echo $_smarty_tpl->tpl_vars['v']->value['img'];?>
+" width="479" height="295"></a></div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="roll_text_all">
-                                <div class="roll_text play">
-                                <div class="roll_title"><h4><a href="">这里是标题</a></h4></div>
-                                <div class="roll_time">2014-11-5</div>
+                                <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['roll']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
+                                <div class="roll_text">
+                                <div class="roll_title"><h4><a href=""><?php echo $_smarty_tpl->tpl_vars['v']->value['title'];?>
+</a></h4></div>
+                                <div class="roll_time"><?php echo date("Y-m-d H:i:s",$_smarty_tpl->tpl_vars['v']->value['time']);?>
+</div>
                                 <div class="roll_content">
-                                    这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
-                                    这里是内容这里是内容这里是内容这里是内容这里是内容
+                                    <?php echo $_smarty_tpl->tpl_vars['v']->value['dsc'];?>
+
                                 </div>
                             </div>
-                                <div class="roll_text">
-                                    <div class="roll_title"><h4><a href="">这里是标题2</a></h4></div>
-                                    <div class="roll_time">2014-11-5</div>
-                                    <div class="roll_content">
-                                        33这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
-                                        这里是内容这里是内容这里是内容这里是内容这里是内容
-                                    </div>
-                                </div>
-                                <div class="roll_text">
-                                    <div class="roll_title"><h4><a href="">这里是标题3</a></h4></div>
-                                    <div class="roll_time">2014-11-5</div>
-                                    <div class="roll_content">
-                                        22这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
-                                        这里是内容这里是内容这里是内容这里是内容这里是内容
-                                    </div>
-                                </div>
+                                <?php } ?>
                             </div>
                             <div class="roll_btn">
                                 <ul class="hd">
@@ -354,6 +355,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                         </div>
                     </div>
             </div>
+            <div class="content_ajax">
             <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['a']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
@@ -391,6 +393,37 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                 </div>
             </div>
             <?php } ?>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block">点击加载更多</button>
+            <script>
+                $(function(){
+                    var n = 1;
+                    $(".btn-lg").click(function(){
+
+                        $.post("index.php?a=page",{
+                            n : n
+                        }, function(data){
+                            $.each(data,function(k,v){
+                                var html = "<div class=content card>";
+                                html+="<div class=row>";
+                                html+="<div class=col-md-4>";
+                                html+="<img src="+ v.img+" width=240 height=160/></div><div class=col-md-8>";
+                                html+="<div class=content_title><a href=index.php?a=content&id="+ v.id+">"+ v.title+"</a></div>";
+                                html+="<div class=content_content>"+ v.dsc+"</div></div></div>";
+                                html+="<div class=content_bottom><div class=row><div class=col-md-4>";
+                                html+="<div class=content_time>发表时间:"+v.time+"</div></div>";
+
+                                html+="<div class=col-md-4>";
+                                html+="<div class=content_autor>作者:"+ v.author+"</div></div>";
+                                html+="<div class=col-md-4><div class=content_cate>"+ v.cate+"</div>";
+                                html+="</div></div></div></div>"
+                                $(".content_ajax").append(html);
+                            })
+                        }, "json");
+                        n++;
+                    })
+                })
+            </script>
         </div><!-- 页面左边的部分结束 -->
 
 
@@ -408,33 +441,31 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
                 <div class="border"></div>
                 <div class="right_content">
                     <div class="list-group list_play">
+                        <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['new_content']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
                         <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容</p>
+                            <h4 class="list-group-item-heading"><?php echo $_smarty_tpl->tpl_vars['v']->value['title'];?>
+</h4>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容</p>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容</p>
-                        </a>
+                        <?php } ?>
                     </div>
 
                     <div class="list-group">
+                        <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['hot_comm']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
                         <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题2</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容2</p>
+                            <h4 class="list-group-item-heading"><?php echo $_smarty_tpl->tpl_vars['v']->value['name'];?>
+</h4>
+                            <p class="list-group-item-text"><?php echo $_smarty_tpl->tpl_vars['v']->value['content'];?>
+</p>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题2</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容2</p>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">分页内容标题2</h4>
-                            <p class="list-group-item-text">此处显示的是分页内容2</p>
-                        </a>
+                        <?php } ?>
                     </div>
 
                     <div class="list-group">
@@ -469,12 +500,14 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
             <div class="right hot_article">
                 <h3>热门文章</h3>
                 <ul>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
-                    <li><a href="">这是第一篇热门文章</a></li>
+                    <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['new_content']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
+                    <li><a href=""><?php echo $_smarty_tpl->tpl_vars['v']->value['title'];?>
+</a></li>
+                    <?php } ?>
                 </ul>
             </div>
         </div><!-- 右边部分结束 -->
@@ -516,8 +549,8 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
             $($child).eq($p).addClass("on");
             $($child).eq($p).siblings().removeClass("on");
             var $text_child = $(".roll_text_all").children();
-            $($text_child).eq($p).addClass("play");
-            $($text_child).eq($p).siblings().removeClass("play");
+            $($text_child).eq($p).show();
+            $($text_child).eq($p).siblings().hide();
         } //图片轮滚动画函数
 
          var id = setInterval(t, 2000); //开启动画
@@ -529,8 +562,8 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
             $(this).addClass("on");
             $(this).siblings().removeClass("on");
             var index = $(this).index();
-            $(".roll_text_all").children().eq(index).addClass("play");
-            $(".roll_text_all").children().eq(index).siblings().removeClass("play");
+            $(".roll_text_all").children().eq(index).show();
+            $(".roll_text_all").children().eq(index).siblings().hide();
             if($(".img_team").is(":animated")) { //如果在动画中，前面的停止执行，直接移动到最终位置
                 $(".img_team").stop().animate({left: index*$i+"px"}, 1000);
             } else { //如果不在动画中，该移动到哪移动到哪
